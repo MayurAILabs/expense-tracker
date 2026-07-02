@@ -5,7 +5,8 @@ and vanilla JavaScript, backed by Firebase Authentication (Google Sign-In)
 and Cloud Firestore. Uses the **Firebase Compat SDK only** — no bundler, no
 frameworks, no build step.
 
-- **Live app:** https://expensemanager-b21ec.web.app
+- **Live app (Firebase Hosting):** https://expensemanager-b21ec.web.app
+- **Live app (GitHub Pages mirror):** https://mayurailabs.github.io/expense-tracker/
 - **Repository:** https://github.com/MayurAILabs/expense-tracker
 
 ## Folder structure
@@ -181,7 +182,22 @@ firebase login                   # one-time, opens a browser
 firebase deploy --only hosting,firestore:rules
 ```
 
-## 9. Notes & limitations
+## 9. Alternate deployment (GitHub Pages)
+
+The same static files are also mirrored on GitHub Pages, served straight from
+the `master` branch root (Settings → Pages in the repo). Because this is a
+**different domain** than the Firebase Hosting URL, it must be added
+separately to Firebase's allow-list or Google Sign-In will fail there with
+`auth/unauthorized-domain`:
+
+1. Firebase Console → **Authentication → Settings → Authorized domains**
+2. Click **Add domain**, enter `mayurailabs.github.io`, save.
+
+No code change is required — this is a one-time console setting, and it
+can't be done from the CLI without extracting an OAuth token, so it isn't
+automated by this repo.
+
+## 10. Notes & limitations
 
 - Currency formatting defaults to INR (₹) via `Intl.NumberFormat`; change
   the locale/currency in `js/utils.js` → `formatCurrency` if needed.
