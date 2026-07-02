@@ -1,0 +1,82 @@
+rules_version = '2';
+
+// -----------------------------------------------------------------------
+// Firestore Security Rules for the Expense Tracker app.
+//
+// IMPORTANT: Keep ADMIN_EMAIL below in sync with ADMIN_EMAIL in
+// js/constants.js. This is the ONLY place (besides that JS constant) that
+// grants admin privileges — changing it here transfers admin access.
+// -----------------------------------------------------------------------
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function isAdmin() {
+      return isSignedIn()
+        && request.auth.token.email != null
+        && request.auth.token.email.lower() == "mayurailabs@gmail.com";
+    }
+
+    // ---------------- users/{uid} ----------------
+    // Each user can read/write only their own profile document.
+    // The admin can read every profile to power the admin dashboard.
+    match /users/{uid} {
+      allow read: if isOwner(uid) || isAdmin();
+      allow create, update: if isOwner(uid) && request.resource.data.uid == uid;
+      allow delete: if false;
+    }
+
+    // ---------------- expenses/{expenseId} ----------------
+    // Every expense document must carry the owner's uid. Users can only
+    // read/create/update/delete their own expenses; the admin can do all of
+    // the above for any user's expense. The owner (uid) can never be changed
+    // by an update once the document exists.
+    match /expenses/{expenseId} {
+      allow read: if isSignedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+
+      allow create: if isSignedIn()
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.userEmail == request.auth.token.email
+        && request.resource.data.expenseName is string
+        && request.resource.data.expenseName.size() > 0
+        && request.resource.data.amount is number
+        && request.resource.data.amount >= 0
+        && request.resource.data.category is string
+        && request.resource.data.paymentMethod is string
+        && request.resource.data.date is string;
+
+      allow update: if isSignedIn()
+        && (resource.data.uid == request.auth.uid || isAdmin())
+        && request.resource.data.uid == resource.data.uid
+        && request.resource.data.amount is number
+        && request.resource.data.amount >= 0;
+
+      allow delete: if isSignedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+    }
+
+    // ---------------- categories/{uid} ----------------
+    // One document per user holding a map of their custom categories.
+    match /categories/{uid} {
+      allow read, write: if isOwner(uid) || isAdmin();
+    }
+
+    // ---------------- budgets/{uid} ----------------
+    // One document per user holding their overall + per-category budgets.
+    match /budgets/{uid} {
+      allow read, write: if isOwner(uid) || isAdmin();
+    }
+
+    // Deny everything else by default.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

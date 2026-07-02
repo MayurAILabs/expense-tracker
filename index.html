@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Expense Tracker | Sign In</title>
+<meta name="description" content="Track your daily expenses with a modern, colorful dashboard." />
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<!-- Font Awesome icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+<!-- App styles -->
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/login.css" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💰</text></svg>" />
+</head>
+<body class="login-page" data-theme="light">
+
+<!-- Decorative animated background blobs -->
+<div class="login-blob b1"></div>
+<div class="login-blob b2"></div>
+<div class="login-blob b3"></div>
+
+<button id="theme-toggle-login" class="btn-icon theme-toggle-floating" title="Toggle dark mode" aria-label="Toggle dark mode">
+  <i class="fa-solid fa-moon"></i>
+</button>
+
+<main class="login-card">
+  <div class="login-logo"><i class="fa-solid fa-wallet"></i></div>
+  <h1>Expense Tracker</h1>
+  <p class="subtitle">Sign in to manage your expenses, track budgets and view insightful reports.</p>
+
+  <button id="google-signin-btn" class="btn-google">
+    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
+    Continue with Google
+  </button>
+
+  <div class="login-loading" id="login-loading">
+    <div class="spinner"></div>
+    <span>Signing you in&hellip;</span>
+  </div>
+
+  <p class="login-error" id="login-error"></p>
+
+  <div class="login-features">
+    <div class="feature"><i class="fa-solid fa-chart-pie"></i><span>Smart Charts</span></div>
+    <div class="feature"><i class="fa-solid fa-shield-halved"></i><span>Secure &amp; Private</span></div>
+    <div class="feature"><i class="fa-solid fa-bolt"></i><span>Real-time Sync</span></div>
+  </div>
+</main>
+
+<div id="toast-container"></div>
+
+<!-- Firebase Compat SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script src="js/firebase-config.js"></script>
+<script src="js/constants.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>
