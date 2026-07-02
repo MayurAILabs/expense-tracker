@@ -5,6 +5,9 @@ and vanilla JavaScript, backed by Firebase Authentication (Google Sign-In)
 and Cloud Firestore. Uses the **Firebase Compat SDK only** — no bundler, no
 frameworks, no build step.
 
+- **Live app:** https://expensemanager-b21ec.web.app
+- **Repository:** https://github.com/MayurAILabs/expense-tracker
+
 ## Folder structure
 
 ```
@@ -160,7 +163,25 @@ Then open `http://localhost:5500/index.html`.
   notifications, confirmation dialogs, empty states, FAB, offline
   persistence via Firestore's local cache
 
-## 8. Notes & limitations
+## 8. Deployment (Firebase Hosting)
+
+The app is deployed as a static site to Firebase Hosting, which is why it
+sits well alongside Auth/Firestore in the same project — the default hosting
+domains are automatically added to the Auth **authorized domains** list, so
+Google Sign-In works there with no extra configuration.
+
+Config lives in [`firebase.json`](firebase.json) (points hosting at the repo
+root, excludes non-public files like `firestore.rules`/`README.md`) and
+[`.firebaserc`](.firebaserc) (pins the default project to
+`expensemanager-b21ec`). To redeploy after making changes:
+
+```bash
+npm install -g firebase-tools   # one-time
+firebase login                   # one-time, opens a browser
+firebase deploy --only hosting,firestore:rules
+```
+
+## 9. Notes & limitations
 
 - Currency formatting defaults to INR (₹) via `Intl.NumberFormat`; change
   the locale/currency in `js/utils.js` → `formatCurrency` if needed.
