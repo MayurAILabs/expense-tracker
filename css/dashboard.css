@@ -48,6 +48,37 @@
   font-size: 1.05rem;
 }
 
+/* Mayur AI Labs logo lockup, in-flow at the top of the sidebar
+   (overrides .mal-logo's fixed positioning used on other pages). */
+.sidebar-mal-logo {
+  position: static;
+  padding: 6px 10px 26px;
+  z-index: auto;
+}
+
+/* Small "ExpenseTracker" brand mark, moved into the topbar */
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.topbar-brand .logo-icon-sm {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.8rem;
+  box-shadow: 0 6px 14px rgba(102, 126, 234, 0.35);
+}
+.topbar-brand span {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
 .nav-list {
   list-style: none;
   display: flex;
