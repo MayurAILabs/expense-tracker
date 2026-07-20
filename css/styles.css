@@ -508,3 +508,35 @@ textarea.form-control {
   .form-row { grid-template-columns: 1fr; }
   .modal { max-width: 94vw; }
 }
+
+/* MAYUR AI LABS HOME LOGO — matches Daily Savings Calculator's header lockup exactly */
+.mal-logo {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.mal-logo-mark { width: 38px; height: 38px; border-radius: 50%; display: block; }
+.mal-logo-text { display: flex; flex-direction: column; gap: 2px; }
+.mal-logo-name {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+.mal-logo-accent { color: #34D399; }
+.mal-logo-tagline {
+  display: block;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 9px;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #34D399;
+  opacity: 0.85;
+  font-weight: 500;
+}
