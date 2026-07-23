@@ -12,7 +12,7 @@ function applyTheme(theme) {
 }
 
 (function initTheme() {
-  applyTheme(localStorage.getItem("theme") || "light");
+  applyTheme(localStorage.getItem("theme") || "dark");
 })();
 
 document.getElementById("theme-toggle").addEventListener("click", () => {
